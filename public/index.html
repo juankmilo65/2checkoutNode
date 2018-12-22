@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Systemasa Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- <link rel="stylesheet" href="../styles.css" /> -->
+  </head>
+  <style type="text/css" media="screen">
+    .loading-bar {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("http://i.stack.imgur.com/FhHRx.gif");
+      background-position: 50% 50%;
+      background-color: rgba(255, 255, 255, 0.8);
+      background-repeat: no-repeat;
+    }
+
+    body.loading {
+      overflow: hidden;
+    }
+
+    body.loading .loading-bar {
+      display: block;
+    }
+  </style>
+  <body class="">
+    <div class="loading-bar"></div>
+    <section class="jumbotron">
+      <div class="container">
+        <h1>Sistemasa</h1>
+        <p>Payment site</p>
+      </div>
+    </section>
+    <section class="main container">
+      <div>
+        <div class="row">
+          <div class="col-3"></div>
+          <div class="col-4">
+            <form id="myCCForm" action="/order" method="post" class="">
+              <input id="token" name="token" type="hidden" value="" />
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>Card Number:</span>
+                </label>
+                <input
+                  id="ccNo"
+                  type="text"
+                  maxlength="16"
+                  onkeypress="return onlyNumbers();"
+                  value=""
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>Expiration Date (MM/YYYY)</span>
+                </label>
+                <input
+                  type="text"
+                  maxlength="2"
+                  onkeypress="return onlyNumbers();"
+                  id="expMonth"
+                  required
+                  class="form-control col-2"
+                />
+                <span> / </span>
+                <input
+                  type="text"
+                  maxlength="4"
+                  onkeypress="return onlyNumbers();"
+                  id="expYear"
+                  required
+                  class="form-control col-3"
+                />
+              </div>
+
+              <div>
+                <div class="form-group row">
+                  <label class="col-5 col-form-label"> <span>CVC</span> </label>
+                  <input
+                    id="cvv"
+                    maxlength="4"
+                    onkeypress="return onlyNumbers();"
+                    type="text"
+                    value=""
+                    autocomplete="off"
+                    required
+                    class="form-control col-3"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>Card Holder Name:</span>
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>Address:</span>
+                </label>
+                <input
+                  id="address"
+                  name="address"
+                  type="text"
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label"> <span>City:</span> </label>
+                <input
+                  id="city"
+                  name="city"
+                  type="text"
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>State:</span>
+                </label>
+                <input
+                  id="state"
+                  name="state"
+                  type="text"
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>Zip Code:</span>
+                </label>
+                <input
+                  id="zip"
+                  name="zip"
+                  type="text"
+                  onkeypress="return onlyNumbers();"
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>Country:</span>
+                </label>
+                <input
+                  id="country"
+                  name="country"
+                  type="text"
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>Email:</span>
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>Phone Number:</span>
+                </label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="text"
+                  onkeypress="return onlyNumbers();"
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group row">
+                <label class="col-5 col-form-label">
+                  <span>Total:</span>
+                </label>
+                <input
+                  id="total"
+                  name="total"
+                  type="text"
+                  onkeypress="return onlyNumbers();"
+                  autocomplete="off"
+                  required
+                  class="form-control col-7"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  class="btn btn-danger"
+                  type="submit"
+                  value="Submit Payment"
+                  class="=col-5"
+                />
+                <img
+                  class="col-7"
+                  src="https://www.latam.com/es_cl/cotiza-y-compra/medios-de-pago/medios-de-pago/_jcr_content/content/ilustratedblockconte_0/image.asset.spool/300x200/Apoyo_cotiza-compra_medios-de-pago_tarjetas-credito.png"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="col-3"></div>
+        </div>
+      </div>
+    </section>
+    <footer></footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://www.2checkout.com/checkout/api/2co.min.js"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      function onlyNumbers(evt) {
+        var e = event || evt; // for trans-browser compatibility
+        var charCode = e.which || e.keyCode;
+
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+
+        return true;
+      }
+      // Called when token created successfully.
+      var successCallback = function(data) {
+        var myForm = document.getElementById("myCCForm");
+
+        // Set the token as the value for the token input
+        myForm.token.value = data.response.token.token;
+
+        // IMPORTANT: Here we call `submit()` on the form element directly instead of using jQuery to prevent and infinite token request loop.
+        myForm.submit();
+      };
+
+      // Called when token creation fails.
+      var errorCallback = function(data) {
+        if (data.errorCode === 200) {
+          tokenRequest();
+        } else {
+          alert(data.errorMsg);
+        }
+      };
+
+      var tokenRequest = function() {
+        document.body.className = "loading";
+        // Setup token request arguments
+        var args = {
+          sellerId: "901400760",
+          publishableKey: "5845D363-009F-4FBA-8034-2B58543363A7",
+          ccNo: $("#ccNo").val(),
+          cvv: $("#cvv").val(),
+          expMonth: $("#expMonth").val(),
+          expYear: $("#expYear").val()
+        };
+
+        // Make the token request
+        TCO.requestToken(successCallback, errorCallback, args);
+      };
+
+      $(function() {
+        // Pull in the public encryption key for our environment
+        TCO.loadPubKey("sandbox");
+
+        $("#myCCForm").submit(function(e) {
+          // Call our token request function
+          tokenRequest();
+
+          // Prevent form from submitting
+          return false;
+        });
+      });
+    </script>
+  </body>
+</html>

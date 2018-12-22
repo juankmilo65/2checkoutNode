@@ -1,0 +1,15 @@
+{
+  "name": "example-node",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "2checkout-node": "0.0.1",
+    "body-parser": "*",
+    "express": "4.x",
+    "http": "*",
+    "path": "^0.12.7"
+  }
+}
